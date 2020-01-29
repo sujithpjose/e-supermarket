@@ -1,0 +1,187 @@
+{
+    "Sujith": {
+        "id": 1,
+        "name": "Sujith",
+        "isAdmin": false
+    },
+    "categories": [
+        {
+            "id": 12090457,
+            "name": "Frozen Food",
+            "subCategory": [
+                {
+                    "id": 1,
+                    "name": "Food1",
+                    "noOfProducts": 12
+                },
+                {
+                    "id": 2,
+                    "name": "Frozen Food2",
+                    "noOfProducts": 17
+                }
+            ]
+        },
+        {
+            "id": 12090458,
+            "name": "Meat",
+            "subCategory": [
+                {
+                    "id": 1,
+                    "name": "Meat",
+                    "noOfProducts": 12
+                },
+                {
+                    "id": 2,
+                    "name": "Meat2",
+                    "noOfProducts": 17
+                }
+            ]
+        },
+        {
+            "id": 12090459,
+            "name": "Paper Goods",
+            "subCategory": [
+                {
+                    "id": 1,
+                    "name": "Paper Goods1",
+                    "noOfProducts": 12
+                },
+                {
+                    "id": 2,
+                    "name": "Paper Goods2",
+                    "noOfProducts": 17
+                }
+            ]
+        },
+        {
+            "id": 12090460,
+            "name": "Beverages",
+            "subCategory": [
+                {
+                    "id": 1,
+                    "name": "Food1",
+                    "noOfProducts": 12
+                },
+                {
+                    "id": 2,
+                    "name": "Frozen Food2",
+                    "noOfProducts": 17
+                }
+            ]
+        },
+        {
+            "id": 12090461,
+            "name": "Dairy",
+            "subCategory": [
+                {
+                    "id": 1,
+                    "name": "Food1",
+                    "noOfProducts": 12
+                },
+                {
+                    "id": 2,
+                    "name": "Frozen Food2",
+                    "noOfProducts": 17
+                }
+            ]
+        },
+        {
+            "id": 12090462,
+            "name": "Personal Care",
+            "subCategory": [
+                {
+                    "id": 1,
+                    "name": "Food1",
+                    "noOfProducts": 12
+                },
+                {
+                    "id": 2,
+                    "name": "Frozen Food2",
+                    "noOfProducts": 17
+                }
+            ]
+        },
+        {
+            "id": 12090463,
+            "name": "Produce",
+            "subCategory": [
+                {
+                    "id": 1,
+                    "name": "Food1",
+                    "noOfProducts": 12
+                },
+                {
+                    "id": 2,
+                    "name": "Frozen Food2",
+                    "noOfProducts": 17
+                }
+            ]
+        },
+        {
+            "id": 12090464,
+            "name": "Others",
+            "subCategory": [
+                {
+                    "id": 1,
+                    "name": "Food1",
+                    "noOfProducts": 12
+                },
+                {
+                    "id": 2,
+                    "name": "Frozen Food2",
+                    "noOfProducts": 17
+                }
+            ]
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "name": "AXE Signature",
+            "description": "body spray for men",
+            "barcode": "ISBN-9756-7787-1134",
+            "avilableQuantity": 44,
+            "isNew": true,
+            "uom": "Packs",
+            "imgUrl": "https://www.eco-business.com/media/cache/4e/23/4e2374cbe7e176c2e06c341817f4c2ff.jpg",
+            "categoryId": 12090462,
+            "categoryName": "Personal Care"
+        },
+        {
+            "id": 2,
+            "name": "AXE Signature",
+            "description": "body spray for men",
+            "barcode": "ISBN-9756-7787-1134",
+            "avilableQuantity": 44,
+            "isNew": false,
+            "uom": "Packs",
+            "imgUrl": "https://www.eco-business.com/media/cache/4e/23/4e2374cbe7e176c2e06c341817f4c2ff.jpg",
+            "categoryId": 12090462,
+            "categoryName": "Personal Care"
+        },
+        {
+            "id": 3,
+            "name": "AXE Signature",
+            "description": "body spray for men",
+            "barcode": "ISBN-9756-7787-1134",
+            "avilableQuantity": 44,
+            "isNew": false,
+            "uom": "Packs",
+            "imgUrl": "https://www.eco-business.com/media/cache/4e/23/4e2374cbe7e176c2e06c341817f4c2ff.jpg",
+            "categoryId": 12090462,
+            "categoryName": "Personal Care"
+        },
+        {
+            "id": 4,
+            "name": "AXE Signature",
+            "description": "body spray for men",
+            "barcode": "ISBN-9756-7787-1134",
+            "avilableQuantity": 44,
+            "isNew": true,
+            "uom": "Packs",
+            "imgUrl": "https://www.eco-business.com/media/cache/4e/23/4e2374cbe7e176c2e06c341817f4c2ff.jpg",
+            "categoryId": 12090462,
+            "categoryName": "Personal Care"
+        }
+    ]
+}

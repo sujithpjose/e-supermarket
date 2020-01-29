@@ -1,14 +1,72 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-toolbar>
+  <ion-searchbar></ion-searchbar>
+</ion-toolbar>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+
+  <ion-grid class="header-section">
+
+    <ion-row>
+      <ion-col>
+        <span>Categories</span>
+      </ion-col>
+      <ion-col class="text-right">
+        <span (click)="onNavigate('categories')">View all</span>
+      </ion-col>
+    </ion-row>
+
+
+
+    <ion-row align-items-center>
+      <ion-col *ngFor="let item of [1,2,3]">
+        <img src="assets/chair.jpeg">
+        <h5>Accent chairs</h5>
+        <p>1300 items</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="header-section">
+    <ion-row>
+      <ion-col>
+        <span>New Arrivals</span>
+      </ion-col>
+      <ion-col class="text-right">
+        <span (click)="onNavigate('products')">View all</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card *ngFor="let item of [1,2,3,4]" (click)="onNavigate('product-details')">
+    <img class="img-thumpnail" src="assets/product.jpeg" />
+    <ion-card-header>
+      <ion-card-subtitle>Chairs</ion-card-subtitle>
+      <ion-card-title>Multiwood 1345XD</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      Keep close to Nature's heart... and break clear away, once in awhile,
+      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+    </ion-card-content>
+
+  </ion-card>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar (click)="onNavigate('categories')">
+    <ion-buttons slot="secondary">
+      <ion-button>
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Create Order</ion-title>
+  </ion-toolbar>
+</ion-footer>

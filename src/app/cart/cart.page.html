@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cart</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <!-- <ion-item>
+    <ion-label position="floating">Description</ion-label>
+    <ion-textarea></ion-textarea>
+  </ion-item> -->
+
+  <ion-list>
+    <ng-container *ngFor="let item of cart">
+      <ion-item lines="full">
+        <ion-thumbnail slot="start">
+          <img [src]="item.imgUrl">
+        </ion-thumbnail>
+        <ion-label>
+          <ion-chip outline color="danger" class="custom-chip" *ngIf="item.isNew">
+            <ion-label class="text-11">New</ion-label>
+          </ion-chip>
+          <h2>{{item?.name}}</h2>
+          <p>{{item?.description}}</p>
+
+          <ion-row>
+            <ion-col>
+              <p>Qty: {{item?.avilableQuantity}}</p>
+            </ion-col>
+            <ion-col>
+              <p> {{item?.barcode}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">In Cart:</ion-label>
+        <span class="input-selection">
+          <ion-input type="number" min="0" [(ngModel)]="item.orderedQuantity"></ion-input>
+        </span>
+        <span class="text-12 text-medium">{{item?.uom}}</span>
+        <!--    <ion-button color="success" fill="outline" slot="end" (click)="addToCart(item)">
+          UPDATE
+        </ion-button> -->
+        <ion-button color="danger" fill="outline" slot="end" (click)="deleteFromCart(item)">
+          DELETE</ion-button>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar (click)="onSubmit()">
+    <ion-buttons slot="secondary">
+      <!-- <ion-note slot="end" color="primary">99</ion-note> -->
+      <ion-button>
+        <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Submit Order</ion-title>
+  </ion-toolbar>
+</ion-footer>

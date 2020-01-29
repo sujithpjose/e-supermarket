@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { AngularHelperService } from '../core/services/angular-helper.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -7,6 +9,12 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(
+    private angularHelperService: AngularHelperService
+  ) { }
+
+  public onNavigate(path) {
+    this.angularHelperService.doNavigate(path);
+  }
 
 }
