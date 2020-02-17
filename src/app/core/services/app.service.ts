@@ -7,6 +7,7 @@ import { DataService } from './../services/data.service';
 import { DataStoreService } from './../services/data-store.service';
 import { AngularHelperService } from './../services/angular-helper.service';
 import { HelperService } from './../services/helper.service';
+import { AlertService } from './../services/alert.service';
 
 @Injectable(
     {
@@ -19,12 +20,13 @@ export class AppService {
         private dataService: DataService,
         private store: DataStoreService,
         private angularHelperService: AngularHelperService,
-        private helper: HelperService
+        private helper: HelperService,
+        private alertService: AlertService
     ) { }
 
     public doLogout() {
-        this.store.empty();
-        this.angularHelperService.doNavigate('/login');
+        // TODO : refractor
+        this.alertService.presentAlertConfirm('Confirm', 'You want to logout?', this.onConfirm, this.onCancel);
     }
 
     public fetchOrders(id): Observable<Order[]> {
@@ -47,5 +49,14 @@ export class AppService {
     public fetchAdminDashboard(): Observable<Product[]> {
         const url = `/${HttpConstants.API_ADMIN}`;
         return this.dataService.get(url);
+    }
+
+    private onConfirm(msg) {
+        this.store.empty();
+        this.angularHelperService.doNavigate('/login');
+    }
+
+    private onCancel(msg) {
+        console.log(msg);
     }
 }

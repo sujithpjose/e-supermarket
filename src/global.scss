@@ -55,6 +55,10 @@ ion-footer ion-toolbar {
   --color: white;
 }
 
+ion-footer ion-toolbar ion-title {
+  font-size: 14px;
+}
+
 .separator {
   height: 10px;
   --background: var(--ion-color-light);
@@ -67,3 +71,7 @@ ion-footer ion-toolbar {
 /* input {
   padding: 5px !important;
 } */
+
+ion-label {
+  font-size: 13px;
+}

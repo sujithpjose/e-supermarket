@@ -68,10 +68,11 @@ export class AlertService {
     await alert.present();
   }
 
-  public async presentToast(msg, color = 'success') {
+  public async presentToast(msg, color = 'dark') {
     const toast = await this.toastController.create({
       message: msg,
-      duration: 2000,
+      duration: 300,
+      position: 'top',
       color
     });
 
