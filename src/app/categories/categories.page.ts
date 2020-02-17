@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularHelperService } from './../core/services/angular-helper.service';
 import { AlertService } from './../core/services/alert.service';
 import { Category } from './../model/store.model';
-import { CategoryService } from './services/category.service';
+import { AppService } from './../core/services/app.service';
 import { DataStoreService } from './../core/services/data-store.service';
 
 
@@ -19,7 +19,7 @@ export class CategoriesPage implements OnInit {
   constructor(
     private angularHelperService: AngularHelperService,
     private alertService: AlertService,
-    private categoryService: CategoryService,
+    private appService: AppService,
     private dataStore: DataStoreService
   ) { }
 
@@ -29,7 +29,11 @@ export class CategoriesPage implements OnInit {
 
   public toProducts(category) {
     this.dataStore.SelectedCategory = category;
-    this.angularHelperService.doNavigate('products');
+    this.angularHelperService.doNavigate('products', { data: 'NEW' });
+  }
+
+  public toCart() {
+    this.angularHelperService.doNavigate('cart');
   }
 
   public onExpand(category: Category) {
@@ -43,12 +47,16 @@ export class CategoriesPage implements OnInit {
   public async fetchCategories() {
     await this.alertService.showLoading();
 
-    this.categoryService.fetchCategories()
+    this.appService.fetchCategories()
       .subscribe((res: Category[]) => {
         this.onSuccess(res);
       }, err => {
         this.handleError(err);
       });
+  }
+
+  public doLogout() {
+    this.appService.doLogout();
   }
 
   private onSuccess(categories: Category[]) {
@@ -57,17 +65,17 @@ export class CategoriesPage implements OnInit {
   }
 
   private onConfirm(msg) {
-    console.log(msg)
+    console.log(msg);
   }
 
   private onCancel(msg) {
-    console.log(msg)
+    console.log(msg);
   }
 
   private handleError(err) {
     console.log(err);
     this.alertService.hideLoading();
-    this.alertService.presentAlertConfirm('Alert', 'Something went wrong!', this.onConfirm, this.onCancel);
+    this.alertService.presentAlert('Alert', 'Something went wrong!', this.onConfirm);
   }
 
 }

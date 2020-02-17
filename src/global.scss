@@ -44,3 +44,26 @@
 .text-medium {
   color: #989aa2;
 }
+
+/* ion-header ion-toolbar {
+  --background: #0000ff;
+  --color: white;
+} */
+
+ion-footer ion-toolbar {
+  --background: var(--ion-color-primary);
+  --color: white;
+}
+
+.separator {
+  height: 10px;
+  --background: var(--ion-color-light);
+}
+
+.align-center {
+  text-align: center;
+}
+
+/* input {
+  padding: 5px !important;
+} */

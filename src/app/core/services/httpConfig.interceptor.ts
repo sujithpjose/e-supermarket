@@ -1,4 +1,4 @@
-//httpConfig.interceptor.ts
+// httpConfig.interceptor.ts
 import {
     HttpRequest,
     HttpHandler,
@@ -12,6 +12,7 @@ import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import * as HttpConstants from './../constants/http.constants';
+import { environment } from './../../../environments/environment';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
@@ -21,14 +22,13 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        const token = 'my-token-string-from-server';
 
-        const token = "my-token-string-from-server";
-
-        //Authentication by setting header with token value
+        // Authentication by setting header with token value
         if (token) {
             request = request.clone({
                 setHeaders: {
-                    'Authorization': token
+                    Authorization: token
                 }
             });
         }
@@ -46,7 +46,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         });
 
         // prepend api route to url
-        request = request.clone({ url: `${HttpConstants.API_ROUTE}${request.url}` });
+        request = this.prependBaseUrl(request);
 
         return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {
@@ -59,6 +59,17 @@ export class HttpConfigInterceptor implements HttpInterceptor {
                 // console.error(error);
                 return throwError(error);
             }));
+    }
+
+    private prependBaseUrl(request) {
+        let url: string;
+        if (HttpConstants.IS_MOCKING) {
+            url = `${HttpConstants.API_MOCK + request.url}`;
+        } else {
+            url = `${environment.apiUrl + HttpConstants.API_ROUTE + request.url}`;
+        }
+
+        return request.clone({ url });
     }
 
 }

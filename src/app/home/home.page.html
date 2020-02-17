@@ -3,70 +3,64 @@
     <ion-title>
       Home
     </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-buttons>
+        <ion-button color="secondary" (click)="doLogout()">
+          <ion-icon slot="icon-only" name="log-out"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-toolbar>
+
+<!-- <ion-icon name="power-outline"></ion-icon> -->
+<!-- <ion-toolbar>
   <ion-searchbar></ion-searchbar>
-</ion-toolbar>
+</ion-toolbar> -->
 
 <ion-content>
 
-  <ion-grid class="header-section">
+  <span *ngIf="orders?.length > 0 ; then  DataList ; else NoRecords"></span>
 
-    <ion-row>
-      <ion-col>
-        <span>Categories</span>
-      </ion-col>
-      <ion-col class="text-right">
-        <span (click)="onNavigate('categories')">View all</span>
-      </ion-col>
-    </ion-row>
+  <ng-template #DataList>
+    <ion-list>
+      <ng-container *ngFor="let item of orders">
+        <ion-row [class]="item.status">
+          <ion-col size="3" class="align-center">
+            <span class="title">{{item?.orderId}}</span> <br>
+            <span class="status">{{item?.status}}</span>
+          </ion-col>
+          <ion-col align-self-start>
+            <span class="label">Created:</span> <br>
+            <span class="text-content"> {{item?.createdOn}}</span>
 
+          </ion-col>
 
+          <ion-col align-self-start>
+            <span class="label">Delivered:</span> <br>
+            <span class="text-content"> {{item?.deliveredOn}}</span>
+          </ion-col>
+        </ion-row>
+        <ion-item class="separator">
+        </ion-item>
+      </ng-container>
+    </ion-list>
+  </ng-template>
 
-    <ion-row align-items-center>
-      <ion-col *ngFor="let item of [1,2,3]">
-        <img src="assets/chair.jpeg">
-        <h5>Accent chairs</h5>
-        <p>1300 items</p>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-grid class="header-section">
-    <ion-row>
-      <ion-col>
-        <span>New Arrivals</span>
-      </ion-col>
-      <ion-col class="text-right">
-        <span (click)="onNavigate('products')">View all</span>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-card *ngFor="let item of [1,2,3,4]" (click)="onNavigate('product-details')">
-    <img class="img-thumpnail" src="assets/product.jpeg" />
-    <ion-card-header>
-      <ion-card-subtitle>Chairs</ion-card-subtitle>
-      <ion-card-title>Multiwood 1345XD</ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content>
-      Keep close to Nature's heart... and break clear away, once in awhile,
-      and climb a mountain or spend a week in the woods. Wash your spirit clean.
-    </ion-card-content>
-
-  </ion-card>
+  <ng-template #NoRecords>
+    <no-content [text]="'No orders found!'"></no-content>
+  </ng-template>
 
 </ion-content>
 
-<ion-footer>
-  <ion-toolbar (click)="onNavigate('categories')">
+<ion-footer class="my-footer">
+  <ion-toolbar (click)="onNavigate('categories')" transparent>
     <ion-buttons slot="secondary">
       <ion-button>
         <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Create Order</ion-title>
+    <ion-title>Create Purchase Order</ion-title>
   </ion-toolbar>
 </ion-footer>

@@ -9,6 +9,16 @@ import { LoginService } from '../service/login.service';
 import { DataStoreService } from './../../core/services/data-store.service';
 import { User } from '../../model/store.model';
 
+const branch = {
+  id: 13,
+  name: '1234567',
+  location: '123456',
+  contact: 123456,
+  password: '1223',
+  startDate: '28/02/1990',
+  isAdmin: false
+};
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -27,7 +37,7 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    const login = new Login('Sujith', '1234');
+    const login = new Login('Syam', 'syam');
     this.initForm(login);
   }
 
@@ -42,33 +52,38 @@ export class LoginPage implements OnInit {
     await this.alertService.showLoading();
     const login: Login = this.loginForm.value;
 
-    this.loginService.doLogin(login.name, login.password)
+    this.loginService.getUser(login.name)
       .subscribe((res: User) => {
-        this.onLoginSuccess(res);
+        this.processUser(res);
       }, err => {
         this.handleError(err);
       });
   }
 
-  private onLoginSuccess(user: User) {
-    this.alertService.hideLoading();
+  private processUser(user: User) {
+    if (user.password !== this.loginForm.value.password) {
+      this.handleError(null);
+      return;
+    }
     this.dataStore.UserId = user.id;
     const path = this.loginService.handleNavigation(user);
+    this.alertService.hideLoading();
+
     this.angularHelperService.doNavigate(path);
   }
 
   private onConfirm(msg) {
-    console.log(msg)
+    console.log(msg);
   }
 
   private onCancel(msg) {
-    console.log(msg)
+    console.log(msg);
   }
 
   private handleError(err) {
     console.log(err);
     this.alertService.hideLoading();
-    this.alertService.presentAlertConfirm('Alert', 'Wrong credentials!', this.onConfirm, this.onCancel);
+    this.alertService.presentAlert('Alert', 'Wrong credentials!', this.onConfirm);
   }
 
 }

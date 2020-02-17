@@ -10,6 +10,8 @@ export class DataStoreService {
   private userId;
   private selectedCategory;
   private cart: Product[] = [];
+  private branchID: number;
+  private adminID: number;
 
   constructor(
     private storage: Storage
@@ -40,7 +42,7 @@ export class DataStoreService {
   }
 
   private addToCart(product) {
-    let index = this.cart.findIndex(item => item.id === product.id);
+    const index = this.cart.findIndex(item => item.id === product.id);
 
     if (index > -1) {
       this.cart[index] = product;
@@ -53,15 +55,42 @@ export class DataStoreService {
   }
 
   public deleteFromCart(product) {
-    let index = this.cart.findIndex(item => item.id === product.id);
+    const index = this.cart.findIndex(item => item.id === product.id);
     this.cart.splice(index, 1);
+
+    this.storage.set('cart', this.cart);
   }
 
   public async getFromCart() {
-    debugger
     const cart = await this.storage.get('cart');
+    this.cart = cart;
 
     return cart;
+  }
+
+  public set BranchID(id) {
+    this.branchID = id;
+  }
+
+  public get BranchID() {
+    return this.branchID;
+  }
+
+  public set AdminID(id) {
+    this.adminID = id;
+  }
+
+  public get AdminID() {
+    return this.adminID;
+  }
+
+  public empty() {
+    this.userId = null;
+    this.selectedCategory = null;
+    this.cart = [];
+    this.branchID = null;
+    this.adminID = null;
+    this.storage.set('cart', this.cart);
   }
 
 }

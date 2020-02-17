@@ -1,7 +1,19 @@
 export interface User {
     id: number;
     name: string;
-    isAdmin: boolean;
+    userName: string;
+    password: string;
+    role: string;
+    branch: Branch;
+}
+
+export interface Branch {
+    id: number;
+    name: string;
+    location: string;
+    contact: number;
+    password: string;
+    startDate: string;
 }
 
 export class Login {
@@ -12,26 +24,37 @@ export interface Category {
     id: number;
     name: string;
     expanded: boolean;
-    subCategory: SubCategory[]
+    subcategories: SubCategory[];
 }
 
 export interface SubCategory {
     id: number;
     name: string;
     noOfProducts: number;
+    parent: number;
 }
 
-export interface Product {
-    id: number;
-    name: string;
-    description: string;
-    barcode: string;
-    avilableQuantity: number;
-    orderedQuantity: number;
-    isNew: boolean;
-    uom: string;
-    imgUrl: string;
-    categoryId: number;
-    categoryName: string;
-    inCart: boolean;
+export class Product {
+    constructor(
+        public id: number,
+        public name: string,
+        public description: string,
+        public barcode: string,
+        public availableQuantity: number,
+        public orderedQuantity: number,
+        public isNew: boolean,
+        public uom: string,
+        public imgUrl: string,
+        public categoryId: number,
+        public categoryName: string,
+        public inCart: boolean
+    ) { }
+
+}
+
+export interface Order {
+    orderId: number;
+    createdOn: Date;
+    deliveredOn: Date;
+    status: 'Created' | 'Completed';
 }

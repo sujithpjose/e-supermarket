@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { AngularHelperService } from './../core/services/angular-helper.service';
 import { AlertService } from './../core/services/alert.service';
-import { Product } from './../model/store.model';
-import { ProductsService } from './services/products.service';
+import { Product, SubCategory } from './../model/store.model';
+import { AppService } from './../core/services/app.service';
 import { DataStoreService } from './../core/services/data-store.service';
 
+const placeholderImg = 'assets/img-placeholder.jpg';
 @Component({
   selector: 'app-products',
   templateUrl: './products.page.html',
@@ -14,37 +16,58 @@ import { DataStoreService } from './../core/services/data-store.service';
 export class ProductsPage implements OnInit {
   public products: Product[] = [];
   public searchString: string;
-  public selectedCategory = {
-    "id": 1,
-    "name": "Paper Goods1",
-    "noOfProducts": 12
-  };
+  public selectedCategory;
 
   constructor(
     private angularHelperService: AngularHelperService,
     private alertService: AlertService,
-    private ProductsService: ProductsService,
-    private dataStore: DataStoreService
+    private appService: AppService,
+    private dataStore: DataStoreService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    // this.selectedCategory = this.dataStore.SelectedCategory;
+    this.selectedCategory = this.dataStore.SelectedCategory;
+    const mode = this.route.snapshot.params.data;
     this.fetchProducts(this.selectedCategory.id);
   }
 
-  ionViewWillEnter(){
-    console.log('in View Enter');
+  ionViewWillEnter() {
+    this.processProducts();
+  }
+
+  private processProducts() {
+    this.dataStore.getFromCart().then((cart: Product[]) => {
+      this.updateProductQty(cart);
+    });
+  }
+
+  private updateProductQty(cart) {
+    this.products.forEach(product => {
+      const item = cart.find(cartItem => product.id === cartItem.id);
+      product.imgUrl = product.imgUrl ? product.imgUrl : placeholderImg;
+      if (item) {
+        product.orderedQuantity = item.orderedQuantity;
+      } else {
+        product.orderedQuantity = 0;
+        product.inCart = false;
+      }
+    });
   }
 
   public addToCart(product) {
     this.dataStore.Cart = product;
+
+    const toastMsg = product.inCart ? 'Cart updated!' : 'Added to cart!';
+    this.alertService.presentToast(toastMsg);
     product.inCart = true;
+
   }
 
   public async fetchProducts(id) {
     await this.alertService.showLoading();
 
-    this.ProductsService.fetchProducts(id)
+    this.appService.fetchProducts(id)
       .subscribe((res: Product[]) => {
         this.onSuccess(res);
       }, err => {
@@ -52,17 +75,26 @@ export class ProductsPage implements OnInit {
       });
   }
 
+  public doLogout() {
+    this.appService.doLogout();
+  }
+
+  public toCart() {
+    this.angularHelperService.doNavigate('cart');
+  }
+
   private onSuccess(products: Product[]) {
     this.products = products;
+    this.processProducts();
     this.alertService.hideLoading();
   }
 
   private onConfirm(msg) {
-    console.log(msg)
+    console.log(msg);
   }
 
   private onCancel(msg) {
-    console.log(msg)
+    console.log(msg);
   }
 
   private handleError(err) {

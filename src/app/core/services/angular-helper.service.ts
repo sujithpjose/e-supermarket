@@ -10,7 +10,7 @@ export class AngularHelperService {
     private router: Router
   ) { }
 
-  public doNavigate(url: string, options?) {
+  public doNavigate(url: string, data?, options?) {
     this.router.navigate([url], options);
   }
 }

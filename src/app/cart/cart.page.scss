@@ -12,3 +12,8 @@
 .input-selection ion-input {
   height: 30px;
 }
+
+ion-toolbar.disabled {
+  --background: var(--ion-color-medium);
+  cursor: not-allowed;
+}

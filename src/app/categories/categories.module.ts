@@ -6,9 +6,9 @@ import { IonicModule } from '@ionic/angular';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { CategoriesPageRoutingModule } from './categories-routing.module';
+import { SharedModule } from './../shared/shared.module';
 
 import { CategoriesPage } from './categories.page';
-import { CategoryService } from './services/category.service';
 
 @NgModule({
   imports: [
@@ -16,9 +16,10 @@ import { CategoryService } from './services/category.service';
     FormsModule,
     IonicModule,
     Ng2SearchPipeModule,
-    CategoriesPageRoutingModule
+    CategoriesPageRoutingModule,
+    SharedModule
   ],
   declarations: [CategoriesPage],
-  providers: [CategoryService]
+  providers: []
 })
 export class CategoriesPageModule { }

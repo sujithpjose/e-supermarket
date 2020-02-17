@@ -3,27 +3,40 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>categories</ion-title>
+    <ion-title>Categories</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-buttons>
+        <ion-button color="success" (click)="toCart()">
+          <ion-icon slot="icon-only" name="cart"></ion-icon>
+        </ion-button>
+        <ion-button color="secondary" (click)="doLogout()">
+          <ion-icon slot="icon-only" name="log-out"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-buttons>
+
   </ion-toolbar>
-  <!--   <ion-toolbar>
-    <ion-searchbar [(ngModel)]="searchString"></ion-searchbar>
-  </ion-toolbar> -->
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="searchString" placeholder="Search by category,products"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <ion-list>
     <ng-container *ngFor="let category of categories">
-      <ion-item class="list-header" (click)="onExpand(category)">
+      <ion-item class="list-header">
         <ion-label class="ion-text-wrap">
           <p class="text-12">{{category?.id}}</p>
           <h2>{{category?.name}}</h2>
         </ion-label>
-        <ion-icon [name]="category?.expanded ? 'arrow-up' : 'arrow-down'" slot="end"></ion-icon>
+        <ion-icon (click)="onExpand(category)" *ngIf="category?.subcategories && category.subcategories.length > 0"
+          [name]="category?.expanded ? 'arrow-up' : 'arrow-down'" slot="end"></ion-icon>
       </ion-item>
 
       <ion-list *ngIf="category?.expanded">
-        <ion-item *ngFor="let item of category.subCategory" (click)="toProducts(item)" lines="full">
+        <ion-item *ngFor="let item of category.subcategories" (click)="toProducts(item)" lines="full">
           <ion-label class="ion-text-wrap">
             <p class="text-12">{{item?.id}}</p>
             <h2>{{item?.name}}</h2>
