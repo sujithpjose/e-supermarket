@@ -17,7 +17,7 @@ export class ProductsPage implements OnInit {
   public products: Product[] = [];
   public searchString: string;
   public selectedCategory;
-  private alertType: string;
+  private alertType = 'DEFAULT';
 
   constructor(
     private angularHelperService: AngularHelperService,
@@ -108,7 +108,7 @@ export class ProductsPage implements OnInit {
   private handleError(err) {
     console.log(err);
     this.alertService.hideLoading();
-    this.alertService.presentAlertConfirm('Alert', 'Something went wrong!',  this.onConfirm.bind(this), this.onCancel.bind(this));
+    this.alertService.presentAlertConfirm('Alert', 'Something went wrong!', this.onConfirm.bind(this), this.onCancel.bind(this));
   }
 
   public onNavigate(path) {

@@ -5,7 +5,7 @@ import { DataStoreService } from './../core/services/data-store.service';
 import { AppService } from './../core/services/app.service';
 import { AlertService } from './../core/services/alert.service';
 import { AngularHelperService } from './../core/services/angular-helper.service';
-import { Product } from './../model/store.model';
+import { Product, PurchaseRequest, PurchaseItems, ProductRequest } from './../model/store.model';
 
 @Component({
   selector: 'app-cart',
@@ -16,7 +16,7 @@ export class CartPage implements OnInit {
   // public cart = [];
   public orderForm: FormGroup;
   public items: FormArray;
-  private alertType: string;
+  private alertType = 'DEFAULT';
 
   constructor(
     private dataStoreService: DataStoreService,
@@ -98,13 +98,29 @@ export class CartPage implements OnInit {
 
   public onSubmit() {
     if (this.orderForm.invalid) return;
+    const request = this.createPurchaseRequest();
 
-    this.createPurchaseRequest();
+    this.appService.createPurchaseOrder(request).subscribe(data => {
+      console.log(data, 'order created');
+      this.alertType = 'CREATE';
+      this.alertService.presentAlert('Success', 'Order created successfully', this.onConfirm.bind(this));
+    }, err => {
+      this.handleError(err);
+    });
 
   }
 
   private createPurchaseRequest() {
     console.log(this.items.value);
+    const items = this.items.value.map(product => {
+      const aProduct = new ProductRequest(null, null, product.id);
+      return new PurchaseItems(aProduct, product.orderedQuantity);
+    });
+
+    const itemArray = new PurchaseRequest(this.dataStoreService.Branch, false, items);
+    console.log(itemArray);
+
+    return itemArray;
   }
 
   private onConfirm(type) {
@@ -113,11 +129,20 @@ export class CartPage implements OnInit {
         this.dataStoreService.empty();
         this.angularHelperService.doNavigate('/login');
         break;
+      case 'CREATE':
+        this.angularHelperService.doNavigate('/home');
+        break;
     }
   }
 
   private onCancel(msg) {
     console.log(msg);
+  }
+
+  private handleError(err) {
+    console.log(err);
+    this.alertService.hideLoading();
+    this.alertService.presentAlert('Alert', 'Something went wrong!', this.onConfirm.bind(this));
   }
 
 }

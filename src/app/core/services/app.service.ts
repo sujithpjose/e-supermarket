@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Order, Category, Product } from '../../model/store.model';
+import { Order, Category, Product, PurchaseRequest } from '../../model/store.model';
 import * as HttpConstants from './../constants/http.constants';
 import { DataService } from './../services/data.service';
 import { DataStoreService } from './../services/data-store.service';
@@ -29,9 +29,9 @@ export class AppService {
         this.alertService.presentAlertConfirm('Confirm', 'You want to logout?', this.onConfirm, this.onCancel);
     }
 
-    public fetchOrders(id): Observable<Order[]> {
+    public fetchOrders(id, type): Observable<Order[]> {
         let url = `/${HttpConstants.API_ORDER}`;
-        url = this.helper.beautifyUrl(url, [id]);
+        url = this.helper.beautifyUrl(url, [id, type]);
 
         return this.dataService.get(url);
     }
@@ -53,12 +53,9 @@ export class AppService {
         return this.dataService.get(url);
     }
 
-    private onConfirm(msg) {
-        this.store.empty();
-        this.angularHelperService.doNavigate('/login');
+    public createPurchaseOrder(data: PurchaseRequest): Observable<any> {
+        const url = `/${HttpConstants.API_PURCHASE}`;
+        return this.dataService.put(url, data);
     }
 
-    private onCancel(msg) {
-        console.log(msg);
-    }
 }

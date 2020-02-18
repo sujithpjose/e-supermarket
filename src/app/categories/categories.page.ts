@@ -15,7 +15,7 @@ import { DataStoreService } from './../core/services/data-store.service';
 export class CategoriesPage implements OnInit {
   public categories: Category[] = [];
   public searchString: string;
-  private alertType: string;
+  private alertType = 'DEFAULT';
 
   constructor(
     private angularHelperService: AngularHelperService,

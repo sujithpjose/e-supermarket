@@ -14,8 +14,7 @@ import { Order } from './../model/store.model';
 })
 export class HomePage implements OnInit {
   public orders: Order[] = [];
-  private alertType: string;
-
+  private alertType = 'DEFAULT';
   constructor(
     private angularHelperService: AngularHelperService,
     private alertService: AlertService,
@@ -33,7 +32,7 @@ export class HomePage implements OnInit {
   public async fetchOrders(id) {
     await this.alertService.showLoading();
 
-    this.appService.fetchOrders(id)
+    this.appService.fetchOrders(id, 'ALL')
       .subscribe((res: Order[]) => {
         this.onSuccess(res);
       }, err => {

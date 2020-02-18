@@ -59,11 +59,26 @@ export interface Order {
     status: 'Created' | 'Completed';
 }
 
-/* export class PurchaseRequest {
-    PurchaseItems[]
+export class PurchaseRequest {
+    constructor(
+        public branch: Branch,
+        public notified: boolean,
+        public purchaseRequestItems: PurchaseItems[]) { }
 }
 
 export class PurchaseItems {
+    constructor(
+        public id: ProductRequest,
+        public requestedQuantity: number
+    ) { }
 
 }
- */
+
+export class ProductRequest {
+    constructor(
+        public id: number,
+        public orderId: number,
+        public productId: number
+    ) { }
+}
+
