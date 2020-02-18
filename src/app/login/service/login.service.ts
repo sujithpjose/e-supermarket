@@ -27,7 +27,7 @@ export class LoginService {
     let navigateTo: string;
 
     if (user.role === 'BRANCH') {
-      this.store.BranchID = user.branch.id;
+      this.store.Branch = user.branch;
       navigateTo = 'home';
     } else {
       navigateTo = 'admin';

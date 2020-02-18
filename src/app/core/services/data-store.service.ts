@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
-import { Product } from './../../model/store.model';
+import { Product, Branch } from './../../model/store.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class DataStoreService {
   private userId;
   private selectedCategory;
   private cart: Product[] = [];
-  private branchID: number;
+  private branch: Branch;
   private adminID: number;
 
   constructor(
@@ -68,12 +68,12 @@ export class DataStoreService {
     return cart;
   }
 
-  public set BranchID(id) {
-    this.branchID = id;
+  public set Branch(branch) {
+    this.branch = branch;
   }
 
-  public get BranchID() {
-    return this.branchID;
+  public get Branch() {
+    return this.branch;
   }
 
   public set AdminID(id) {
@@ -88,7 +88,7 @@ export class DataStoreService {
     this.userId = null;
     this.selectedCategory = null;
     this.cart = [];
-    this.branchID = null;
+    this.branch = null;
     this.adminID = null;
     this.storage.set('cart', this.cart);
   }

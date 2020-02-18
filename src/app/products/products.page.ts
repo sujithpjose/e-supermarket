@@ -17,6 +17,7 @@ export class ProductsPage implements OnInit {
   public products: Product[] = [];
   public searchString: string;
   public selectedCategory;
+  private alertType: string;
 
   constructor(
     private angularHelperService: AngularHelperService,
@@ -48,6 +49,7 @@ export class ProductsPage implements OnInit {
       product.imgUrl = product.imgUrl ? product.imgUrl : placeholderImg;
       if (item) {
         product.orderedQuantity = item.orderedQuantity;
+        product.inCart = true;
       } else {
         product.orderedQuantity = 0;
         product.inCart = false;
@@ -76,7 +78,8 @@ export class ProductsPage implements OnInit {
   }
 
   public doLogout() {
-    this.appService.doLogout();
+    this.alertType = 'LOGOUT';
+    this.alertService.presentAlertConfirm('Confirm', 'You want to logout?', this.onConfirm, this.onCancel);
   }
 
   public toCart() {
@@ -90,7 +93,12 @@ export class ProductsPage implements OnInit {
   }
 
   private onConfirm(msg) {
-    console.log(msg);
+    switch (this.alertType) {
+      case 'LOGOUT':
+        this.dataStore.empty();
+        this.angularHelperService.doNavigate('/login');
+        break;
+    }
   }
 
   private onCancel(msg) {
@@ -100,7 +108,7 @@ export class ProductsPage implements OnInit {
   private handleError(err) {
     console.log(err);
     this.alertService.hideLoading();
-    this.alertService.presentAlertConfirm('Alert', 'Something went wrong!', this.onConfirm, this.onCancel);
+    this.alertService.presentAlertConfirm('Alert', 'Something went wrong!',  this.onConfirm.bind(this), this.onCancel.bind(this));
   }
 
   public onNavigate(path) {

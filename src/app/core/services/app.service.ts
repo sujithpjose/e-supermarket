@@ -42,7 +42,9 @@ export class AppService {
     }
 
     public fetchProducts(id): Observable<Product[]> {
-        const url = `/${HttpConstants.API_PRODUCT}`;
+        let url = `/${HttpConstants.API_PRODUCT}`;
+        url = this.helper.beautifyUrl(url, [id]);
+
         return this.dataService.get(url);
     }
 

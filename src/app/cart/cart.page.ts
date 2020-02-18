@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { DataStoreService } from './../core/services/data-store.service';
 import { AppService } from './../core/services/app.service';
 import { AlertService } from './../core/services/alert.service';
+import { AngularHelperService } from './../core/services/angular-helper.service';
 import { Product } from './../model/store.model';
 
 @Component({
@@ -15,12 +16,14 @@ export class CartPage implements OnInit {
   // public cart = [];
   public orderForm: FormGroup;
   public items: FormArray;
+  private alertType: string;
 
   constructor(
     private dataStoreService: DataStoreService,
     private appService: AppService,
     private formBuilder: FormBuilder,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private angularHelperService: AngularHelperService
   ) {
     this.initForm();
   }
@@ -89,12 +92,32 @@ export class CartPage implements OnInit {
   }
 
   public doLogout() {
-    this.appService.doLogout();
+    this.alertType = 'LOGOUT';
+    this.alertService.presentAlertConfirm('Confirm', 'You want to logout?', this.onConfirm.bind(this), this.onCancel.bind(this));
   }
 
   public onSubmit() {
     if (this.orderForm.invalid) return;
 
+    this.createPurchaseRequest();
+
+  }
+
+  private createPurchaseRequest() {
+    console.log(this.items.value);
+  }
+
+  private onConfirm(type) {
+    switch (this.alertType) {
+      case 'LOGOUT':
+        this.dataStoreService.empty();
+        this.angularHelperService.doNavigate('/login');
+        break;
+    }
+  }
+
+  private onCancel(msg) {
+    console.log(msg);
   }
 
 }

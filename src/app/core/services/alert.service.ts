@@ -37,12 +37,12 @@ export class AlertService {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            onCancel('Confirm Cancel');
+            onCancel('CANCEL');
           }
         }, {
           text: 'Okay',
           handler: () => {
-            onConfirm('Confirm Okay');
+            onConfirm('OK');
           }
         }
       ]

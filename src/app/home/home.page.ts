@@ -14,6 +14,7 @@ import { Order } from './../model/store.model';
 })
 export class HomePage implements OnInit {
   public orders: Order[] = [];
+  private alertType: string;
 
   constructor(
     private angularHelperService: AngularHelperService,
@@ -23,7 +24,7 @@ export class HomePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    const storeId = this.store.BranchID;
+    const storeId = this.store.Branch.id;
 
     // TODO : hardcoding for testion
     this.fetchOrders(1);
@@ -46,7 +47,12 @@ export class HomePage implements OnInit {
   }
 
   private onConfirm(msg) {
-    console.log(msg);
+    switch (this.alertType) {
+      case 'LOGOUT':
+        this.store.empty();
+        this.onNavigate('/login');
+        break;
+    }
   }
 
   private onCancel(msg) {
@@ -56,7 +62,7 @@ export class HomePage implements OnInit {
   private handleError(err) {
     console.log(err);
     this.alertService.hideLoading();
-    this.alertService.presentAlert('Alert', 'Something went wrong!', this.onConfirm);
+    this.alertService.presentAlert('Alert', 'Something went wrong!', this.onConfirm.bind(this));
   }
 
   public onNavigate(path) {
@@ -64,7 +70,8 @@ export class HomePage implements OnInit {
   }
 
   public doLogout() {
-    this.appService.doLogout();
+    this.alertType = 'LOGOUT';
+    this.alertService.presentAlertConfirm('Confirm', 'You want to logout?', this.onConfirm.bind(this), this.onCancel.bind(this));
   }
 
 }

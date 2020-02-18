@@ -15,6 +15,7 @@ import { DataStoreService } from './../core/services/data-store.service';
 export class CategoriesPage implements OnInit {
   public categories: Category[] = [];
   public searchString: string;
+  private alertType: string;
 
   constructor(
     private angularHelperService: AngularHelperService,
@@ -56,7 +57,8 @@ export class CategoriesPage implements OnInit {
   }
 
   public doLogout() {
-    this.appService.doLogout();
+    this.alertType = 'LOGOUT';
+    this.alertService.presentAlertConfirm('Confirm', 'You want to logout?', this.onConfirm.bind(this), this.onCancel.bind(this));
   }
 
   private onSuccess(categories: Category[]) {
@@ -65,7 +67,12 @@ export class CategoriesPage implements OnInit {
   }
 
   private onConfirm(msg) {
-    console.log(msg);
+    switch (this.alertType) {
+      case 'LOGOUT':
+        this.dataStore.empty();
+        this.angularHelperService.doNavigate('/login');
+        break;
+    }
   }
 
   private onCancel(msg) {

@@ -58,3 +58,12 @@ export interface Order {
     deliveredOn: Date;
     status: 'Created' | 'Completed';
 }
+
+/* export class PurchaseRequest {
+    PurchaseItems[]
+}
+
+export class PurchaseItems {
+
+}
+ */
