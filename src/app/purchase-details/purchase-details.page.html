@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Purchase #{{order?.id}}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-buttons>
+        <!--  <ion-button color="success" (click)="toCart()">
+          <ion-icon slot="icon-only" name="cart"></ion-icon>
+        </ion-button> -->
+        <ion-button color="secondary" (click)="doLogout()">
+          <ion-icon slot="icon-only" name="log-out"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-row [ngClass]="{'Delivered' : order?.actualDeliveryDate , 'Created' : !order?.actualDeliveryDate}">
+    <ion-col size="12">
+      <span class="title">{{order?.orderNumber}}</span>
+    </ion-col>
+    <ion-col>
+      <span class="label">Created On:</span> <br>
+      <span class="text-content"> {{order?.orderDate}}</span>
+    </ion-col>
+
+    <ion-col>
+      <span class="label">Delivered On:</span> <br>
+      <span class="text-content"> {{order?.actualDeliveryDate || '-'}}</span>
+    </ion-col>
+  </ion-row>
+  <ion-item class="separator">
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label>
+      Products
+    </ion-label>
+  </ion-item>
+  <ion-list>
+    <ng-container *ngFor="let item of order?.purchaseRequestItems">
+      <ion-row class="product-section">
+        <ion-col size="3">
+          <span class="label">Id:</span> <br>
+          <span class="text-content"> {{item?.id.productId}}</span>
+        </ion-col>
+        <ion-col>
+          <span class="label">Requested Qty:</span> <br>
+          <span class="text-content"> {{item?.requestedQuantity}}</span>
+        </ion-col>
+        <ion-col>
+          <span class="label">Delivered Qty:</span> <br>
+          <span class="text-content"> {{item?.deliveredQuantity || '-'}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-item class="separator">
+      </ion-item>
+    </ng-container>
+  </ion-list>
+
+</ion-content>

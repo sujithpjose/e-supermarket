@@ -7,7 +7,7 @@ import { Product, Branch } from './../../model/store.model';
   providedIn: 'root'
 })
 export class DataStoreService {
-  private userId;
+  private userRole;
   private selectedCategory;
   private cart: Product[] = [];
   private branch: Branch;
@@ -17,12 +17,12 @@ export class DataStoreService {
     private storage: Storage
   ) { }
 
-  public set UserId(id) {
-    this.userId = id;
+  public set UserRole(id) {
+    this.userRole = id;
   }
 
-  public get UserId() {
-    return this.userId;
+  public get UserRole() {
+    return this.userRole;
   }
 
   public set SelectedCategory(category) {
@@ -85,11 +85,15 @@ export class DataStoreService {
   }
 
   public empty() {
-    this.userId = null;
+    this.userRole = null;
     this.selectedCategory = null;
-    this.cart = [];
     this.branch = null;
     this.adminID = null;
+    this.emptyCart();
+  }
+
+  public emptyCart() {
+    this.cart = [];
     this.storage.set('cart', this.cart);
   }
 

@@ -1,10 +1,16 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons *ngIf="role==='ADMIN'" slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>
-      Home
+      {{name}}
     </ion-title>
 
     <ion-buttons slot="end">
+      <!--  <ion-button color="success" (click)="toCart()">
+        <ion-icon slot="icon-only" name="cart"></ion-icon>
+      </ion-button> -->
       <ion-buttons>
         <ion-button color="secondary" (click)="doLogout()">
           <ion-icon slot="icon-only" name="log-out"></ion-icon>
@@ -14,34 +20,32 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- <ion-icon name="power-outline"></ion-icon> -->
-<!-- <ion-toolbar>
-  <ion-searchbar></ion-searchbar>
-</ion-toolbar> -->
-
 <ion-content>
 
   <span *ngIf="orders?.length > 0 ; then  DataList ; else NoRecords"></span>
 
   <ng-template #DataList>
     <ion-list>
-      <ng-container *ngFor="let item of orders">
-        <ion-row [class]="item.status">
-          <ion-col size="3" class="align-center">
-            <span class="title">{{item?.orderId}}</span> <br>
-            <span class="status">{{item?.status}}</span>
-          </ion-col>
-          <ion-col align-self-start>
-            <span class="label">Created:</span> <br>
-            <span class="text-content"> {{item?.createdOn}}</span>
+      <ng-container *ngFor="let item of orders | reverse">
+        <ion-item detail="true" lines="none" (click)="toDetails(item.id)">
+          <ion-row class="list-item"
+            [ngClass]="{'Delivered' : item.actualDeliveryDate , 'Created' : !item.actualDeliveryDate}">
+            <ion-col size="3" class="align-center">
+              <span class="title">{{item?.id}}</span> <br>
+              <span class="status">{{item?.status}}</span>
+            </ion-col>
+            <ion-col align-self-start>
+              <span class="label">Created On:</span> <br>
+              <span class="text-content"> {{item?.orderDate}}</span>
 
-          </ion-col>
+            </ion-col>
 
-          <ion-col align-self-start>
-            <span class="label">Delivered:</span> <br>
-            <span class="text-content"> {{item?.deliveredOn}}</span>
-          </ion-col>
-        </ion-row>
+            <ion-col align-self-start>
+              <span class="label">Delivered On:</span> <br>
+              <span class="text-content"> {{item?.actualDeliveryDate || '-'}}</span>
+            </ion-col>
+          </ion-row>
+        </ion-item>
         <ion-item class="separator">
         </ion-item>
       </ng-container>

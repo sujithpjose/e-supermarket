@@ -79,7 +79,7 @@ export class ProductsPage implements OnInit {
 
   public doLogout() {
     this.alertType = 'LOGOUT';
-    this.alertService.presentAlertConfirm('Confirm', 'You want to logout?', this.onConfirm, this.onCancel);
+    this.alertService.presentAlertConfirm('Confirm', 'You want to logout?', this.onConfirm.bind(this), this.onCancel.bind(this));
   }
 
   public toCart() {

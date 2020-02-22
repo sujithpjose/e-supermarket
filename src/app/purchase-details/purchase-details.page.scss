@@ -1,0 +1,36 @@
+.Delivered {
+  color: var(--ion-color-success);
+  padding: 10px;
+}
+
+.Created {
+  color: var(--ion-color-secondary);
+  padding: 10px;
+}
+
+.product-section {
+  padding: 10px;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: bold;
+  margin: 3px 0 3px 0;
+  display: inline-block;
+}
+
+.status {
+  font-size: 12px;
+}
+
+.label {
+  color: var(--ion-color-medium);
+  font-size: 13px;
+  display: inline-block;
+  margin: 0 0 3px 0;
+}
+
+.text-content {
+  color: var(--ion-color-dark);
+  font-size: 14px;
+}

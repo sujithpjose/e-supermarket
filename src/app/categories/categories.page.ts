@@ -14,7 +14,7 @@ import { DataStoreService } from './../core/services/data-store.service';
 })
 export class CategoriesPage implements OnInit {
   public categories: Category[] = [];
-  public searchString: string;
+  public searchString = '';
   private alertType = 'DEFAULT';
 
   constructor(
@@ -61,6 +61,10 @@ export class CategoriesPage implements OnInit {
     this.alertService.presentAlertConfirm('Confirm', 'You want to logout?', this.onConfirm.bind(this), this.onCancel.bind(this));
   }
 
+  public doSearch() {
+    this.angularHelperService.doNavigate(`product-search/${this.searchString}`);
+  }
+
   private onSuccess(categories: Category[]) {
     this.categories = categories;
     this.alertService.hideLoading();
@@ -82,7 +86,7 @@ export class CategoriesPage implements OnInit {
   private handleError(err) {
     console.log(err);
     this.alertService.hideLoading();
-    this.alertService.presentAlert('Alert', 'Something went wrong!', this.onConfirm);
+    this.alertService.presentAlert('Alert', 'Something went wrong!', this.onConfirm.bind(this));
   }
 
 }

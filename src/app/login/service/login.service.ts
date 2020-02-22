@@ -28,8 +28,9 @@ export class LoginService {
 
     if (user.role === 'BRANCH') {
       this.store.Branch = user.branch;
-      navigateTo = 'home';
+      navigateTo = `home/${user.branch.name}`;
     } else {
+      this.store.AdminID = user.id;
       navigateTo = 'admin';
     }
     return navigateTo;

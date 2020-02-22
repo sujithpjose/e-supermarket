@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { AngularHelperService } from '../core/services/angular-helper.service';
 import { AlertService } from './../core/services/alert.service';
@@ -15,24 +16,30 @@ import { Order } from './../model/store.model';
 export class HomePage implements OnInit {
   public orders: Order[] = [];
   private alertType = 'DEFAULT';
+  public name: string;
+  public role: 'ADMIN' | 'BRANCH';
+
   constructor(
     private angularHelperService: AngularHelperService,
     private alertService: AlertService,
     private appService: AppService,
-    private store: DataStoreService
+    private store: DataStoreService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    const storeId = this.store.Branch.id;
-
-    // TODO : hardcoding for testion
-    this.fetchOrders(1);
+    this.name = this.route.snapshot.paramMap.get('name');
+    this.role = this.store.UserRole;
   }
 
-  public async fetchOrders(id) {
+  ionViewWillEnter() {
+    this.fetchOrders();
+  }
+
+  public async fetchOrders() {
     await this.alertService.showLoading();
 
-    this.appService.fetchOrders(id, 'ALL')
+    this.appService.fetchOrders()
       .subscribe((res: Order[]) => {
         this.onSuccess(res);
       }, err => {
@@ -64,6 +71,10 @@ export class HomePage implements OnInit {
     this.alertService.presentAlert('Alert', 'Something went wrong!', this.onConfirm.bind(this));
   }
 
+  public toDetails(id) {
+    this.angularHelperService.doNavigate(`purchase-details/${id}`);
+  }
+
   public onNavigate(path) {
     this.angularHelperService.doNavigate(path);
   }
@@ -71,6 +82,10 @@ export class HomePage implements OnInit {
   public doLogout() {
     this.alertType = 'LOGOUT';
     this.alertService.presentAlertConfirm('Confirm', 'You want to logout?', this.onConfirm.bind(this), this.onCancel.bind(this));
+  }
+
+  public toCart() {
+    this.angularHelperService.doNavigate('cart');
   }
 
 }

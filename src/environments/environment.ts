@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://cart-env.9j4gafqgm8.us-east-2.elasticbeanstalk.com',
+  apiUrl: 'http://tajalfalaj.in',
   mockUrl: 'http://localhost:3000'
 };
 

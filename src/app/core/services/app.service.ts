@@ -24,14 +24,15 @@ export class AppService {
         private alertService: AlertService
     ) { }
 
-    public doLogout() {
-        // TODO : refractor
-        this.alertService.presentAlertConfirm('Confirm', 'You want to logout?', this.onConfirm, this.onCancel);
-    }
-
-    public fetchOrders(id, type): Observable<Order[]> {
-        let url = `/${HttpConstants.API_ORDER}`;
-        url = this.helper.beautifyUrl(url, [id, type]);
+    public fetchOrders(): Observable<Order[]> {
+        let url;
+        if (this.store.UserRole === 'ADMIN') {
+            url = `/${HttpConstants.API_PENDING_ORDER}`;
+        } else {
+            const storeId = this.store.Branch.id;
+            url = `/${HttpConstants.API_ORDER_FOR_BRANCH}`;
+            url = this.helper.beautifyUrl(url, [storeId]);
+        }
 
         return this.dataService.get(url);
     }
@@ -49,13 +50,25 @@ export class AppService {
     }
 
     public fetchAdminDashboard(): Observable<Product[]> {
-        const url = `/${HttpConstants.API_ADMIN}`;
+        const url = `/${HttpConstants.API_FAVORITES}`;
         return this.dataService.get(url);
     }
 
     public createPurchaseOrder(data: PurchaseRequest): Observable<any> {
         const url = `/${HttpConstants.API_PURCHASE}`;
         return this.dataService.put(url, data);
+    }
+
+    public fetchPendingCount(): Observable<any> {
+        const url = `/${HttpConstants.API_PENDING}`;
+        return this.dataService.get(url);
+    }
+
+    public fetchPurchaseOrder(id) {
+        let url = `/${HttpConstants.API_PURCHASE_ORDER}`;
+        url = this.helper.beautifyUrl(url, [id]);
+
+        return this.dataService.get(url);
     }
 
 }

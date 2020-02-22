@@ -18,7 +18,17 @@
 
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar [(ngModel)]="searchString" placeholder="Search by category,products"></ion-searchbar>
+    <ion-row>
+      <ion-col size="9">
+        <ion-searchbar [(ngModel)]="searchString" placeholder="Search by category,products"></ion-searchbar>
+      </ion-col>
+      <ion-col>
+        <ion-button [disabled]="!searchString || searchString?.length < 3" color="success" (click)="doSearch()">
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
   </ion-toolbar>
 </ion-header>
 
@@ -37,7 +47,7 @@
       </ion-item>
 
       <ion-list *ngIf="category?.expanded">
-        <ion-item *ngFor="let item of category.subcategories" (click)="toProducts(item)" lines="full">
+        <ion-item *ngFor="let item of category.subcategories" (click)="toProducts(item)" detail="true" lines="full">
           <ion-label class="ion-text-wrap">
             <p class="text-12">{{item?.id}}</p>
             <h2>{{item?.name}}</h2>

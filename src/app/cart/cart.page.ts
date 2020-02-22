@@ -96,13 +96,17 @@ export class CartPage implements OnInit {
     this.alertService.presentAlertConfirm('Confirm', 'You want to logout?', this.onConfirm.bind(this), this.onCancel.bind(this));
   }
 
-  public onSubmit() {
-    if (this.orderForm.invalid) return;
+  public async onSubmit() {
+    if (this.orderForm.invalid || this.orderForm.get('items').value.length === 0) return;
+
+    await this.alertService.showLoading();
     const request = this.createPurchaseRequest();
 
     this.appService.createPurchaseOrder(request).subscribe(data => {
       console.log(data, 'order created');
+      this.dataStoreService.emptyCart();
       this.alertType = 'CREATE';
+      this.alertService.hideLoading();
       this.alertService.presentAlert('Success', 'Order created successfully', this.onConfirm.bind(this));
     }, err => {
       this.handleError(err);
@@ -130,7 +134,7 @@ export class CartPage implements OnInit {
         this.angularHelperService.doNavigate('/login');
         break;
       case 'CREATE':
-        this.angularHelperService.doNavigate('/home');
+        this.angularHelperService.doNavigate(`/home/${this.dataStoreService.Branch.name}`);
         break;
     }
   }

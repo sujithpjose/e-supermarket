@@ -21,7 +21,7 @@
     <ion-textarea></ion-textarea>
   </ion-item> -->
 
-  <span *ngIf="orderForm.get('items').length > 0 ; then  DataList ; else NoRecords"></span>
+  <span *ngIf="orderForm.get('items').value.length > 0 ; then  DataList ; else NoRecords"></span>
 
   <ng-template #DataList>
     <form [formGroup]="orderForm">
@@ -78,7 +78,7 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar (click)="onSubmit()" [ngClass]="{'disabled':orderForm.invalid}">
+  <ion-toolbar (click)="onSubmit()" [ngClass]="{'disabled':orderForm.invalid || orderForm.get('items').value.length === 0}">
     <ion-buttons slot="end">
       <!-- <ion-note slot="end" color="primary">99</ion-note> -->
       <ion-button>

@@ -6,9 +6,11 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { NoContentComponent } from './components/no-content/no-content.component';
+import { ReversePipe } from './pipes/reverse.pipe';
 @NgModule({
   declarations: [
-    NoContentComponent
+    NoContentComponent,
+    ReversePipe
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { NoContentComponent } from './components/no-content/no-content.component
   exports: [
     Ng2SearchPipeModule,
     NgxPaginationModule,
-    NoContentComponent
+    NoContentComponent,
+    ReversePipe
   ]
 })
 export class SharedModule { }
