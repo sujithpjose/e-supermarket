@@ -71,4 +71,11 @@ export class AppService {
         return this.dataService.get(url);
     }
 
+    public searchProducts(text): Observable<Product[]> {
+        let url = `/${HttpConstants.API_PRODUCT_SEARCH}`;
+        url = this.helper.beautifyUrl(url, [text]);
+
+        return this.dataService.get(url);
+    }
+
 }

@@ -71,7 +71,7 @@ export class ProductSearchPage implements OnInit {
   public async fetchProducts(searchString) {
     await this.alertService.showLoading();
 
-    this.appService.fetchProducts(searchString)
+    this.appService.searchProducts(searchString)
       .subscribe((res: Product[]) => {
         this.onSuccess(res);
       }, err => {
@@ -88,8 +88,8 @@ export class ProductSearchPage implements OnInit {
     this.angularHelperService.doNavigate('cart');
   }
 
-  private onSuccess(products: Product[]) {
-    this.products = products;
+  private onSuccess(result) {
+    this.products = result.products;
     this.processProducts();
     this.alertService.hideLoading();
   }
