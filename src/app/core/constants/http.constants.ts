@@ -13,6 +13,6 @@ export const API_FAVORITES = `/product/favourite`;
 export const API_PENDING = `/purchase/records/status/NEW`;
 export const API_PURCHASE_ORDER = `/purchase/{?}`;
 export const API_PENDING_ORDER = `purchase/status/NEW`;
-export const API_PRODUCT_SEARCH = `/purchase/search/?text={?}`;
+export const API_PRODUCT_SEARCH = `/product/search/?text={?}`;
 
 // export const API_CATEGORY = `/v1/employees`;
