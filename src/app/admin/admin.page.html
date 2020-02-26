@@ -25,22 +25,23 @@
     <ng-container *ngFor="let item of products">
       <ion-item lines="full">
         <ion-thumbnail slot="start">
-          <img [src]="item.imgUrl">
+          <img [src]="item.product.image">
         </ion-thumbnail>
         <ion-label>
-          <ion-chip outline color="danger" class="custom-chip" *ngIf="item.isNew">
+          <ion-chip outline color="danger" class="custom-chip" *ngIf="item.product.isNew">
             <ion-label class="text-11">New</ion-label>
           </ion-chip>
-          <h2>{{item?.name}}</h2>
-          <p>{{item?.description}}</p>
-          <p>{{item?.category}}</p>
+          <h2>{{item?.product.name}}</h2>
+          <h2 class="text-secondary">Order Received: {{item?.records}}</h2>
+          <p>{{item?.product.description}}</p>
+          <p>Category: {{item?.product.category.name}}</p>
 
           <ion-row>
             <ion-col>
-              <p>Qty: {{item?.avilableQuantity}}</p>
+              <p>Qty: {{item?.product.quantity}}</p>
             </ion-col>
             <ion-col>
-              <p> {{item?.barcode}}</p>
+              <p> {{item?.product.barcode}}</p>
             </ion-col>
           </ion-row>
         </ion-label>

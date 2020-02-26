@@ -23,6 +23,7 @@
   <ion-row [ngClass]="{'Delivered' : order?.actualDeliveryDate , 'Created' : !order?.actualDeliveryDate}">
     <ion-col size="12">
       <span class="title">{{order?.orderNumber}}</span>
+      <p class="success">Branch : {{order?.branch?.name}}</p>
     </ion-col>
     <ion-col>
       <span class="label">Created On:</span> <br>
@@ -45,6 +46,28 @@
   </ion-item>
   <ion-list>
     <ng-container *ngFor="let item of order?.purchaseRequestItems">
+      <ion-item lines="full">
+        <ion-thumbnail slot="start">
+          <img [src]="item.product.imagePath">
+        </ion-thumbnail>
+        <ion-label>
+          <ion-chip outline color="danger" class="custom-chip" *ngIf="item.product.newArrival">
+            <ion-label class="text-11">New</ion-label>
+          </ion-chip>
+          <h2>{{item?.product.name}}</h2>
+          <p>{{item?.product.description}}</p>
+
+          <ion-row>
+            <ion-col>
+              <p>Qty: {{item?.product.quantity}}</p>
+            </ion-col>
+            <ion-col>
+              <p> {{item?.product.barcode}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+
+      </ion-item>
       <ion-row class="product-section">
         <ion-col size="3">
           <span class="label">Id:</span> <br>

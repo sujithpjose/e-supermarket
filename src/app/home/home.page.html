@@ -58,7 +58,7 @@
 
 </ion-content>
 
-<ion-footer class="my-footer">
+<ion-footer *ngIf="role === 'BRANCH'" class="my-footer">
   <ion-toolbar (click)="onNavigate('categories')" transparent>
     <ion-buttons slot="secondary">
       <ion-button>

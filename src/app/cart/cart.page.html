@@ -39,7 +39,7 @@
                 </ion-chip>
                 <h2>{{item.get('name').value}}</h2>
                 <p>{{item.get('description').value}}</p>
-
+                <p>Category: {{item.get('categoryName').value}}</p>
                 <ion-row>
                   <ion-col>
                     <p>Qty: {{item.get('availableQuantity').value}}</p>
@@ -78,7 +78,8 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar (click)="onSubmit()" [ngClass]="{'disabled':orderForm.invalid || orderForm.get('items').value.length === 0}">
+  <ion-toolbar (click)="onSubmit()"
+    [ngClass]="{'disabled':orderForm.invalid || orderForm.get('items').value.length === 0}">
     <ion-buttons slot="end">
       <!-- <ion-note slot="end" color="primary">99</ion-note> -->
       <ion-button>

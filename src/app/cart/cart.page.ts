@@ -43,7 +43,7 @@ export class CartPage implements OnInit {
   ngOnInit() { }
 
   private initForm() {
-    const product = new Product(null, null, null, null, null, null, null, null, null, null, null, null);
+    const product = new Product(null, null, null, null, null, null, null, null, null, null, null, null, null , null);
 
     this.orderForm = this.formBuilder.group({
       items: this.formBuilder.array([this.createItem(product)])
@@ -61,13 +61,13 @@ export class CartPage implements OnInit {
       id: [item.id],
       name: [item.name],
       description: [item.description],
-      availableQuantity: [item.availableQuantity],
+      availableQuantity: [item.quantity],
       barcode: [item.barcode],
       categoryId: [item.categoryId],
-      categoryName: [item.categoryName],
-      imgUrl: [item.imgUrl],
+      categoryName: [item.category ? item.category.name : ''],
+      imgUrl: [item.imagePath],
       inCart: [item.inCart],
-      isNew: [item.isNew],
+      isNew: [item.newArrival],
       orderedQuantity: [item.orderedQuantity, [Validators.required, Validators.min(1)]],
       uom: [item.uom]
     });
@@ -121,7 +121,7 @@ export class CartPage implements OnInit {
       return new PurchaseItems(aProduct, product.orderedQuantity);
     });
 
-    const itemArray = new PurchaseRequest(this.dataStoreService.Branch, false, items);
+    const itemArray = new PurchaseRequest(this.dataStoreService.Branch, 'NEW', items);
     console.log(itemArray);
 
     return itemArray;

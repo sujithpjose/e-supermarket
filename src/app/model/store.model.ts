@@ -40,14 +40,16 @@ export class Product {
         public name: string,
         public description: string,
         public barcode: string,
-        public availableQuantity: number,
+        public quantity: number,
         public orderedQuantity: number,
-        public isNew: boolean,
+        public newArrival: boolean,
         public uom: string,
-        public imgUrl: string,
+        public imagePath: string,
         public categoryId: number,
         public categoryName: string,
-        public inCart: boolean
+        public inCart: boolean,
+        public category: any,
+        public image: any,
     ) { }
 
 }
@@ -62,7 +64,7 @@ export interface Order {
 export class PurchaseRequest {
     constructor(
         public branch: Branch,
-        public notified: boolean,
+        public status: string,
         public purchaseRequestItems: PurchaseItems[]) { }
 }
 

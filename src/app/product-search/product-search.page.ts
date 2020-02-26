@@ -48,7 +48,7 @@ export class ProductSearchPage implements OnInit {
   private updateProductQty(cart) {
     this.products.forEach(product => {
       const item = cart.find(cartItem => product.id === cartItem.id);
-      product.imgUrl = product.imgUrl ? product.imgUrl : placeholderImg;
+      product.imagePath = product.imagePath ? product.imagePath : placeholderImg;
       if (item) {
         product.orderedQuantity = item.orderedQuantity;
         product.inCart = true;
