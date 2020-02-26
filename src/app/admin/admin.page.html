@@ -25,7 +25,7 @@
     <ng-container *ngFor="let item of products">
       <ion-item lines="full">
         <ion-thumbnail slot="start">
-          <img [src]="item.product.image">
+          <img-holder [image]="item.product.image"></img-holder>
         </ion-thumbnail>
         <ion-label>
           <ion-chip outline color="danger" class="custom-chip" *ngIf="item.product.isNew">

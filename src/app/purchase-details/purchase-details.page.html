@@ -48,7 +48,7 @@
     <ng-container *ngFor="let item of order?.purchaseRequestItems">
       <ion-item lines="full">
         <ion-thumbnail slot="start">
-          <img [src]="item.product.imagePath">
+          <img-holder [image]="item.product.image"></img-holder>
         </ion-thumbnail>
         <ion-label>
           <ion-chip outline color="danger" class="custom-chip" *ngIf="item.product.newArrival">
@@ -69,16 +69,16 @@
 
       </ion-item>
       <ion-row class="product-section">
-        <ion-col size="3">
+        <!-- <ion-col size="3">
           <span class="label">Id:</span> <br>
           <span class="text-content"> {{item?.id.productId}}</span>
-        </ion-col>
+        </ion-col> -->
         <ion-col>
-          <span class="label">Requested Qty:</span> <br>
+          <span class="label">Requested Qty:</span>
           <span class="text-content"> {{item?.requestedQuantity}}</span>
         </ion-col>
         <ion-col>
-          <span class="label">Delivered Qty:</span> <br>
+          <span class="label">Delivered Qty:</span>
           <span class="text-content"> {{item?.deliveredQuantity || '-'}}</span>
         </ion-col>
       </ion-row>

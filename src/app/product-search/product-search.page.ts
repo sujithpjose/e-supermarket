@@ -7,7 +7,7 @@ import { Product, SubCategory } from './../model/store.model';
 import { AppService } from './../core/services/app.service';
 import { DataStoreService } from './../core/services/data-store.service';
 
-const placeholderImg = 'assets/img-placeholder.jpg';
+// const placeholderImg = 'assets/img-placeholder.jpg';
 
 @Component({
   selector: 'app-product-search',
@@ -48,7 +48,6 @@ export class ProductSearchPage implements OnInit {
   private updateProductQty(cart) {
     this.products.forEach(product => {
       const item = cart.find(cartItem => product.id === cartItem.id);
-      product.imagePath = product.imagePath ? product.imagePath : placeholderImg;
       if (item) {
         product.orderedQuantity = item.orderedQuantity;
         product.inCart = true;

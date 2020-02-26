@@ -7,10 +7,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import { NoContentComponent } from './components/no-content/no-content.component';
 import { ReversePipe } from './pipes/reverse.pipe';
+import { ImgHolderComponent } from './components/img-holder/img-holder.component';
 @NgModule({
   declarations: [
     NoContentComponent,
-    ReversePipe
+    ReversePipe,
+    ImgHolderComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { ReversePipe } from './pipes/reverse.pipe';
     Ng2SearchPipeModule,
     NgxPaginationModule,
     NoContentComponent,
-    ReversePipe
+    ReversePipe,
+    ImgHolderComponent
   ]
 })
 export class SharedModule { }

@@ -7,7 +7,7 @@ import { Product, SubCategory } from './../model/store.model';
 import { AppService } from './../core/services/app.service';
 import { DataStoreService } from './../core/services/data-store.service';
 
-const placeholderImg = 'assets/img-placeholder.jpg';
+// const placeholderImg = 'assets/img-placeholder.jpg';
 @Component({
   selector: 'app-products',
   templateUrl: './products.page.html',
@@ -46,7 +46,6 @@ export class ProductsPage implements OnInit {
   private updateProductQty(cart) {
     this.products.forEach(product => {
       const item = cart.find(cartItem => product.id === cartItem.id);
-      product.imagePath = product.image ? `data:image/png; ${product.image}` : placeholderImg;
       if (item) {
         product.orderedQuantity = item.orderedQuantity;
         product.inCart = true;

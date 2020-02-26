@@ -65,7 +65,7 @@ export class CartPage implements OnInit {
       barcode: [item.barcode],
       categoryId: [item.categoryId],
       categoryName: [item.category ? item.category.name : ''],
-      imgUrl: [item.imagePath],
+      imgUrl: [item.image],
       inCart: [item.inCart],
       isNew: [item.newArrival],
       orderedQuantity: [item.orderedQuantity, [Validators.required, Validators.min(1)]],

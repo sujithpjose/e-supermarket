@@ -31,7 +31,7 @@
           <div [formGroupName]="i">
             <ion-item lines="full">
               <ion-thumbnail slot="start">
-                <img [src]="item.get('imgUrl').value">
+                <img-holder [image]="item.get('imgUrl').value"></img-holder>
               </ion-thumbnail>
               <ion-label>
                 <ion-chip outline color="danger" class="custom-chip" *ngIf="item.get('isNew').value">
