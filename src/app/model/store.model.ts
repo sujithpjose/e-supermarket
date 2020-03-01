@@ -25,6 +25,7 @@ export interface Category {
     name: string;
     expanded: boolean;
     subcategories: SubCategory[];
+    parent: any;
 }
 
 export interface SubCategory {

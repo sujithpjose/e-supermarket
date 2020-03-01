@@ -86,3 +86,20 @@ ion-item .list-item {
   color: var(--ion-color-secondary);
   margin: 5px 0 !important;
 }
+
+.input-selection {
+  width: 100px;
+  border-bottom: 1px solid #dfe3ee;
+  margin: 0 10px;
+}
+
+.input-selection ion-input {
+  --padding-end: 5px;
+  --padding-top: 3px;
+  --padding-bottom: 2px;
+  --padding-start: 5px;
+}
+
+.input-selection ion-input input {
+  height: 35px;
+}

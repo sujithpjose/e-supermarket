@@ -66,7 +66,7 @@ export class CategoriesPage implements OnInit {
   }
 
   private onSuccess(categories: Category[]) {
-    this.categories = categories;
+    this.categories = categories.filter(item => !item.parent);
     this.alertService.hideLoading();
   }
 
